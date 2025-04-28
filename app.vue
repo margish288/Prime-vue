@@ -7,6 +7,7 @@
       <Tab value="2">Sort</Tab>
       <Tab value="3">Filter</Tab>
       <Tab value="4">Add Remove Column</Tab>
+      <Tab value="5">Download CSV</Tab>
     </TabList>
     <TabPanels>
       <TabPanel value="0">
@@ -23,6 +24,9 @@
       </TabPanel>
       <TabPanel value="4">
         <AddRemove />
+      </TabPanel>
+      <TabPanel value="5">
+        <MultiDownload />
       </TabPanel>
     </TabPanels>
   </Tabs>

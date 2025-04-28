@@ -2,9 +2,12 @@
   <div class="card">
     <DataTable
       v-model:filters="filters"
+      ref="dgRef"
       :value="customers"
       paginator
       showGridlines
+      selectionMode="multiple"
+      :metaKeySelection="metaKey"
       :rows="10"
       dataKey="id"
       filterDisplay="menu"
@@ -239,6 +242,14 @@
         </template>
       </Column>
     </DataTable>
+
+    <Button
+      type="button"
+      icon="pi pi-filter-slash"
+      label="Download CSV"
+      outlined
+      @click="download()"
+    />
   </div>
 </template>
 
@@ -269,6 +280,10 @@ const statuses = ref([
   "proposal",
 ]);
 const loading = ref(true);
+const dgRef = ref(null);
+
+const metaKey = ref(true);
+const selectedCustomers = ref(null);
 
 onMounted(() => {
   // CustomerService.getCustomersMedium().then((data) => {
@@ -325,6 +340,196 @@ onMounted(() => {
       activity: 20,
       verified: true,
     },
+    {
+      name: "Ioni Bowcher",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[5],
+      date: new Date("2023-10-06"),
+      balance: 600000,
+      status: "proposal",
+      activity: 10,
+      verified: false,
+    },
+    {
+      name: "Ivan Magalhaes",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[6],
+      date: new Date("2023-10-07"),
+      balance: 700000,
+      status: "qualified",
+      activity: 90,
+      verified: true,
+    },
+    {
+      name: "Onyama Limba",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[7],
+      date: new Date("2023-10-08"),
+      balance: 800000,
+      status: "unqualified",
+      activity: 70,
+      verified: false,
+    },
+    {
+      name: "Stephen Shaw",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[8],
+      date: new Date("2023-10-09"),
+      balance: 900000,
+      status: "new",
+      activity: 50,
+      verified: true,
+    },
+    {
+      name: "XuXue Feng",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[9],
+      date: new Date("2023-10-10"),
+      balance: 1000000,
+      status: "negotiation",
+      activity: 30,
+      verified: false,
+    },
+    {
+      name: "John Doe",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[0],
+      date: new Date("2023-10-11"),
+      balance: 1100000,
+      status: "renewal",
+      activity: 20,
+      verified: true,
+    },
+    {
+      name: "Jane Smith",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[1],
+      date: new Date("2023-10-12"),
+      balance: 1200000,
+      status: "proposal",
+      activity: 10,
+      verified: false,
+    },
+    {
+      name: "Michael Johnson",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[2],
+      date: new Date("2023-10-13"),
+      balance: 1300000,
+      status: "qualified",
+      activity: 90,
+      verified: true,
+    },
+    {
+      name: "Emily Davis",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[3],
+      date: new Date("2023-10-14"),
+      balance: 1400000,
+      status: "unqualified",
+      activity: 70,
+      verified: false,
+    },
+    {
+      name: "David Brown",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[4],
+      date: new Date("2023-10-15"),
+      balance: 1500000,
+      status: "new",
+      activity: 50,
+      verified: true,
+    },
+    {
+      name: "Sarah Wilson",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[5],
+      date: new Date("2023-10-16"),
+      balance: 1600000,
+      status: "negotiation",
+      activity: 30,
+      verified: false,
+    },
+    {
+      name: "James Taylor",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[6],
+      date: new Date("2023-10-17"),
+      balance: 1700000,
+      status: "renewal",
+      activity: 20,
+      verified: true,
+    },
+    {
+      name: "Linda Anderson",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[7],
+      date: new Date("2023-10-18"),
+      balance: 1800000,
+      status: "proposal",
+      activity: 10,
+      verified: false,
+    },
+    {
+      name: "Robert Martinez",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[8],
+      date: new Date("2023-10-19"),
+      balance: 1900000,
+      status: "qualified",
+      activity: 90,
+      verified: true,
+    },
+    {
+      name: "Patricia Garcia",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[9],
+      date: new Date("2023-10-20"),
+      balance: 2000000,
+      status: "unqualified",
+      activity: 70,
+      verified: false,
+    },
+    {
+      name: "Charles Lee",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[0],
+      date: new Date("2023-10-21"),
+      balance: 2100000,
+      status: "new",
+      activity: 50,
+      verified: true,
+    },
+    {
+      name: "Jessica Wilson",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[1],
+      date: new Date("2023-10-22"),
+      balance: 2200000,
+      status: "negotiation",
+      activity: 30,
+      verified: false,
+    },
+    {
+      name: "Daniel Harris",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[2],
+      date: new Date("2023-10-23"),
+      balance: 2300000,
+      status: "renewal",
+      activity: 20,
+      verified: true,
+    },
+    {
+      name: "Sophia Clark",
+      country: { name: "United States", code: "US" },
+      representative: representatives.value[3],
+      date: new Date("2023-10-24"),
+      balance: 2400000,
+      status: "proposal",
+      activity: 10,
+      verified: false,
+    },
   ];
   loading.value = false;
 });
@@ -359,6 +564,13 @@ const initFilters = () => {
 };
 
 initFilters();
+
+const download = () => {
+  console.log("Download CSV", dgRef.value);
+  dgRef.value.exportCSV({
+    selectionOnly: true,
+  });
+};
 
 const formatDate = (value) => {
   return value.toLocaleDateString("en-US", {
